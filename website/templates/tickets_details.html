@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Ticket Details</h1>
+    <div class="card mb-4">
+        <div class="card-header">
+            Ticket ID: {{ ticket.id }}
+        </div>
+        <div class="card-body">
+            <p class="card-text">Ticket Title: {{ ticket.title }}</p>
+            <p class="card-text">Ticket Description: {{ ticket.description }}</p>
+            <p class="card-text">Ticket Status: {{ ticket.status }}</p>
+            <p class="card-text">Ticket Priority: {{ ticket.ticket_priority }}</p>
+            <p class="card-text">Assigned To: {{ ticket.assigned_to }}</p>
+
+            {% if ticket.img %}
+            <div class="mb-4">
+                <h3>Attached Image:</h3>
+                <img src="data:image/png;base64,{{ ticket.img|b64encode }}" alt="Attached Image" class="img-fluid">
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <form method="POST" action="{{ url_for('views.update_ticket_details', ticket_id=ticket.id) }}">
+        {% if current_user.user_type == 'admin'  %}
+
+        <div class="form-group">
+            <label class="control-label col-lg-2" for="ticket_priority">Ticket Priority</label>
+            <div class="col-lg-10">
+                <select class="form-control" id="ticket_priority" name="ticket_priority" style="font-size: 18px;">
+                    <option value="Urgent" {% if ticket.ticket_priority == 'urgent' %}selected{% endif %}>Urgent</option>
+                    <option value="High Priority" {% if ticket.ticket_priority == 'high' %}selected{% endif %}>High Priority</option>
+                    <option value="Normal Priority" {% if ticket.ticket_priority == 'normal' %}selected{% endif %}>Normal Priority</option>
+                    <option value="Low Priority" {% if ticket.ticket_priority == 'low' %}selected{% endif %}>Low Priority</option>
+                    <option value="Lowest Priority" {% if ticket.ticket_priority == 'trivial' %}selected{% endif %}>Lowest Priority</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="assign_admin">Assign to Admin:</label>
+            <select class="form-control" id="assign_admin" name="assign_admin">
+                <option value="">Unassign</option>
+                {% for user in admin_users %}
+                    <option value="{{ user.id }}" {% if user.id == ticket.assigned_to %}selected{% endif %}>
+                        {{ user.first_name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        {% endif %}
+
+        <h3>Comments:</h3>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>User</th>
+                    <th>Date</th>
+                    <th>Comment</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for comment in comments %}
+                <tr>
+                    <td>{{ comment.id }}</td>
+
+                    <td>{{ comment.user_fname }}</td>
+                    <td >{{comment.create_date.strftime('%Y-%m-%d %H:%M') }}</td>
+                    <td>{{ comment.content }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Add pagination controls here -->
+        {% if comments.has_prev %}
+        <a href="{{ url_for('views.ticket_details', ticket_id=ticket.id, page=comments.prev_num) }}" class="btn btn-secondary mt-3">Previous Page</a>
+        {% endif %}
+        {% if comments.has_next %}
+        <a href="{{ url_for('views.ticket_details', ticket_id=ticket.id, page=comments.next_num) }}" class="btn btn-secondary mt-3">Next Page</a>
+        {% endif %}
+
+        <div class="form-group">
+            <label for="comment_content">Add a comment:</label>
+            <textarea class="form-control" id="comment_content" name="comment_content" rows="4" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Comment</button>
+    </form>
+
+    <a href="javascript:void(0);" onclick="history.go(-1);" class="btn btn-secondary mt-3">Back</a>
+</div>
+{% endblock %}

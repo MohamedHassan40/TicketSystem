@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{%block title %}Home{%endblock %}
+
+{%block content %}
+
+<body>
+  <!-- container section start -->
+  <section id="container" class="">
+
+    <ul class="list-group list-group-flush" id="notes">
+
+      <!--main content start-->
+      <!--     <section id="main-content"> -->
+      <!-- <section class="wrapper"> -->
+      <!--overview start-->
+
+
+      <!-- project team & activity start -->
+      <div class="row">
+
+        <!----------------------------- table--------------------------------- -->
+        <div class="col-lg-8">
+
+          <section class="panel">
+
+            <header class="panel-heading">
+              <h1>My Tickets</h1>
+            </header>
+            <div class="scroll">
+
+
+              <table id="ticket_data" class="ticket_data table table-striped table-bordered table-sm" style="max-width:100%;height:auto;">
+                <thead>
+                    <tr>
+                        <th data-sort="id">ID</th>
+                        <th data-sort="title">Title</th>
+                        <th data-sort="description">Description</th>
+                        <th data-sort="create_date">Date</th>
+                        <th data-sort="phnumber">Phone Number</th>
+                        <th data-sort="status">Status</th>
+                        <th>Action</th>
+                        <th>Time Of Completion</th>
+                        <th>Complete</th> <!-- New column for the green button -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ticketstitle in user.tickets %}
+                    <tr>
+                        <td id="title1" methods="POST" name="title1">
+                            {{ ticketstitle.id }}
+                        </td>
+                        <td>
+                            {{ ticketstitle.title }}
+                        </td>
+                        <td>
+                            {{ ticketstitle.description }}
+                        </td>
+                        <td>
+                            {{ ticketstitle.create_date }}
+                        </td>
+                        <td>
+                            {{ ticketstitle.phnumber }}
+                        </td>
+                        <td>
+                            {{ ticketstitle.status }}
+                        </td>
+                        <td>
+                            <a href="/ticket/{{ ticketstitle.id }}" class="btn btn-primary">Open</a>
+                        </td>
+                        <td>
+                            {{ ticketstitle.complete_date }}
+                        </td>
+                        <td> <!-- New column for the green button -->
+                            {% if ticketstitle.status == "Open" %}
+                            <a href="/forward/{{ ticketstitle.id }}?form_type=tickets" class="btn btn-success icon_check_alt2"></a>
+                            {% else %}
+                            <a href="/forward/{{ ticketstitle.id }}" disabled class="btn btn-success icon_check_alt2"></a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+            </div>
+
+
+
+
+           
+          </section>
+        </div>
+      </div>
+      </div><br><br>
+
+</body>
+{%endblock%}

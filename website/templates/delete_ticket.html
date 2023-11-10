@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Delete Ticket{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fa fa-laptop"></i> Delete Ticket</h3>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Are you sure you want to delete the following ticket?</p>
+                    <ul class="list-group">
+                        <li class="list-group-item"><strong>Title:</strong> {{ ticket.title }}</li>
+                        <li class="list-group-item"><strong>Description:</strong> {{ ticket.description }}</li>
+                        <!-- Display other fields to confirm deletion -->
+                    </ul>
+                    <form method="POST" action="">
+                        <button type="submit" class="btn btn-danger mt-3">Confirm Deletion</button>
+                        <a href="{{ url_for('views.tickets') }}" class="btn btn-secondary mt-3">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

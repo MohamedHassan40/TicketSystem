@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Edit Ticket{% endblock %}
+
+{% block content %}
+<div class="col-md-6 portlets">
+    <main class=" emp-profile service-card-more-info-file">
+
+    <h3 class="page-header"><i class="fa fa-laptop"></i> Edit Ticket</h3>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="pull-left">Edit Ticket</div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="panel-body">
+            <div class="padd">
+                <div class="form">
+                    <form class="form-horizontal" method="POST" action="">
+                        <!-- Title -->
+                        <div class="form-group">
+                            <label class="control-label col-lg-2" for="title">Title</label>
+                            <div class="col-lg-10">
+                                <input style="font-size:18px" type="text" class="form-control" name="title" id="title" value="{{ ticket.title }}">
+                            </div>
+                        </div>
+                        <!-- Description -->
+                        <div class="form-group">
+                            <label class="control-label col-lg-2" for="description">Ticket Description</label>
+                            <div class="col-lg-10">
+                                <textarea style="font-size:18px" class="form-control" id="description" name="description">{{ ticket.description }}</textarea>
+                            </div>
+                        </div>
+                        <!-- Phone Number -->
+                        <div class="form-group">
+                            <label class="control-label col-lg-2" for="phnumber">Phone Number</label>
+                            <div class="col-lg-10">
+                                <input style="font-size:18px" class="form-control" id="phnumber" name="phnumber" value="{{ ticket.phnumber }}">
+                            </div>
+                        </div>
+                        <input type="file" name="inputFile">
+
+                        <!-- Other fields to edit -->
+                        <!-- ... -->
+
+                        <!-- Save Button -->
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-9">
+                                <button style="font-size:18px" type="submit" class="btn btn-primary">Save Changes</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </main>
+</div>
+{% endblock %}

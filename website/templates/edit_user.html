@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Edit User{% endblock %}
+
+{% block content %}
+<main class=" emp-profile service-card-more-info-file">
+
+  <h1>Edit User</h1>
+  <form method="POST" action="{{ url_for('auth.edit_user', user_id=user.id) }}">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" required>
+    </div>
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input type="text" class="form-control" id="firstName" name="firstName" value="{{ user.first_name }}" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="text" class="form-control" id="password" name="password" value="{{ user.password }}" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+  </form>
+</main>
+{% endblock %}

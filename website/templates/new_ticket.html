@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block title %}Tickets{% endblock %}
+
+{% block content %}
+<div class="half-width-container">
+
+    <main class=" emp-profile service-card-more-info-file">
+
+        <body>
+
+            <div class="col-md-12 portlets">
+
+                <h3 class="page-header"><i class="fa fa-laptop"></i> Submit Ticket</h3>
+
+                <div class="panel panel-default">
+
+                    <div class="panel-body">
+                        <div class="padd">
+                            <div class="form quick-post">
+                                <!-- Edit profile form (not working)-->
+                                <form class="form-horizontal" method="POST" action="{{ url_for('views.home') }}"
+                                    enctype="multipart/form-data">
+
+                                    <!-- Title -->
+                                    <input type="hidden" name="form_type" value="ticket">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-lg-2" for="title">Title</label>
+                                        <div class="col-lg-10">
+                                            <input style="font-size:18px" type="text" class="form-control" name="title"
+                                                id="title">
+                                        </div>
+                                    </div>
+
+                                    <!-- Description -->
+                                    <div class="form-group">
+                                        <label class="control-label col-lg-2" style="white-space: nowrap;"
+                                            for="description"> Ticket Description</label>
+                                        <div class="col-lg-10">
+                                            <textarea style="font-size:18px" class="form-control" id="description"
+                                                name="description"></textarea>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- For Ticket Priority -->
+                                    <!-- <div class="form-group">
+                                        <label class="control-label col-lg-2" for="ticket_priority"> Ticket
+                                            Priority</label>
+                                        <div class="col-lg-10">
+                                            <select class="form-control" id="ticket_priority" name="ticket_priority"
+                                                style="font-size: 18px;">
+                                                <option value="urgent">Urgent</option>
+                                                <option value="high">High Priority</option>
+                                                <option value="normal">Normal Priority</option>
+                                                <option value="low">Low Priority</option>
+                                                <option value="trivial">Trivial/Lowest Priority</option>
+                                            </select>
+                                        </div>
+                                    </div> -->
+
+                                    <!-- For Ticket Type -->
+                                    <div class="form-group">
+                                        <label class="control-label col-lg-2" for="ticket_type"> Ticket Type</label>
+                                        <div class="col-lg-10">
+                                            <select class="form-control" id="ticket_type" name="ticket_type"
+                                                style="font-size: 18px;">
+                                                <option value="issue">Issue</option>
+                                                <option value="bug">Bug</option>
+                                                <option value="feature">Feature Request</option>
+                                                <!-- Add more options as needed -->
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Picture -->
+                                    <div class="form-group">
+                                        <label class="control-label col-lg-2" for="inputFile">Picture</label>
+                                        <div class="form-group col-lg-10">
+                                            <input type="file" name="inputFile" id="inputFile"
+                                                onchange="previewImage()" multiple>
+                                            <br /><br />
+                                            <img id="imagePreview" src="" alt="Image Preview"
+                                                style="max-width: 100%; max-height: 300px;">
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Buttons -->
+                                    <div class="form-group">
+                                        <div class="col-lg-offset-2 col-lg-9">
+                                            <button style="font-size:18px" type="submit"
+                                                class="btn btn-primary">Send</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                function previewImage() {
+                    const inputFile = document.getElementById('inputFile');
+                    const imagePreview = document.getElementById('imagePreview');
+
+                    if (inputFile.files && inputFile.files[0]) {
+                        const reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            imagePreview.src = e.target.result;
+                        };
+
+                        reader.readAsDataURL(inputFile.files[0]);
+                    } else {
+                        imagePreview.src = '';
+                    }
+                }
+            </script>
+        </body>
+    </main>
+</div>
+{% endblock %}
